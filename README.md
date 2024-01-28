@@ -70,7 +70,7 @@ Start with setting the desired Azure region for your production deployment. Our 
 pulumi config set azure-native:location westus3
 ```
 
-We will use the Pulumi Docker library module to generate the containerize image. It needs to know where to find the Dockerfile for our application, the public port number to expose, CPU and Memory limits.
+We will use the Pulumi Docker library module to generate the containerize image. It needs to know the path to find the _Dockerfile_ for our application, the public port number to expose, and the CPU and Memory resource limits.
 
 You can edit the `Pulumi.prod.yaml` file directly to add the remaining config params. It should look like this.
 
@@ -145,7 +145,7 @@ Append this definition code to the bottom of your index.ts file. We will use the
 const resourceGroup = new resources.ResourceGroup(`${prefixName}-rg`)
 
 // Create the container registry.
-const registry = new containerregistry.Registry(`${prefixName}-acr`, {
+const registry = new containerregistry.Registry(`${prefixName}ACR`, {
   resourceGroupName: resourceGroup.name,
   adminUserEnabled: true,
   sku: {
@@ -238,6 +238,11 @@ Create a container group in the Azure Container App service and make it publicly
 - the last section defines the public ingress: DNS name and IP address.
 
 ```ts
+// Other imports at the top of the module
+import * as containerinstance from '@pulumi/azure-native/containerinstance'
+
+// ... rest of the code
+
 // Create a container group in the Azure Container App service and make it publicly accessible.
 const containerGroup = new containerinstance.ContainerGroup(
   `${prefixName}-container-group`,
