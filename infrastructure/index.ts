@@ -11,6 +11,7 @@ const config = new pulumi.Config()
 const appPath = config.get('appPath') || '../'
 const prefixName = config.get('prefixName') || 'cst8918-a03-student'
 const prefixNameWithoutDashes = config.get('prefixNameWithoutDashes') || 'cst8918a03student'
+const weatherAPIKey = config.get('weatherAPIKey')
 const imageName = prefixName
 const imageTag = config.get('imageTag') || 'latest'
 // Azure container instances (ACI) service does not yet support port mapping
@@ -93,7 +94,7 @@ const containerGroup = new containerinstance.ContainerGroup(
           },
           {
             name: 'WEATHER_API_KEY',
-            value: '8c862232867b0502334badbaa957fcc4'
+            value: `${weatherAPIKey}`
           }
         ],
         resources: {

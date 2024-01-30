@@ -7,4 +7,5 @@ config:
   cst8918-a03-infra:memory: '2'
   cst8918-a03-infra:prefixName: 'cst8918-a03-pare0254'
   cst8918-a03-infra:prefixNameWithoutDashes: 'cst8918a03pare0254'
+  cst8918-a03-infra:weatherAPIKey: '8c862232867b0502334badbaa957fcc4'
   cst8918-a03-infra:publicPort: '80'
