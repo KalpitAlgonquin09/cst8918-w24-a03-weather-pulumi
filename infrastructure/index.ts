@@ -7,6 +7,7 @@ import * as containerregistry from '@pulumi/azure-native/containerregistry'
 const config = new pulumi.Config()
 const appPath = config.get('appPath') || '../'
 const prefixName = config.get('prefixName') || 'cst8918-a03-student'
+const prefixNameWithoutDashes = config.get('prefixNameWithoutDashes') || 'cst8918a03student'
 const imageName = prefixName
 const imageTag = config.get('imageTag') || 'latest'
 // Azure container instances (ACI) service does not yet support port mapping
@@ -17,10 +18,10 @@ const cpu = config.getNumber('cpu') || 1
 const memory = config.getNumber('memory') || 2
 
 // Create a resource group.
-const resourceGroup = new resources.ResourceGroup(`${prefixName}registry`)
+const resourceGroup = new resources.ResourceGroup(`${prefixName}-rg`)
 
 // Create the container registry.
-const registry = new containerregistry.Registry(`${prefixName}azurecontainerregistry`, {
+const registry = new containerregistry.Registry(`${prefixNameWithoutDashes}ACR`, {
   resourceGroupName: resourceGroup.name,
   adminUserEnabled: true,
   sku: {
@@ -41,5 +42,5 @@ const registryCredentials = containerregistry
     }
   })
 
-export const acrServer = registry.loginServer
-export const acrUsername = registryCredentials.username
+// export const acrServer = registry.loginServer
+// export const acrUsername = registryCredentials.username
