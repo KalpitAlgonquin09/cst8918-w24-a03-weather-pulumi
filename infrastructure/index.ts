@@ -127,12 +127,12 @@ const containerGroup = new containerinstance.ContainerGroup(
 //   addr => `http://${addr!.fqdn!}:${containerPort}`
 // )
 
-const redisCache = new cache.Redis("redisCache", {
+const redisCache = new cache.Redis(`${prefixName}RC`, {
   resourceGroupName: resourceGroup.name,
   location: resourceGroup.location.apply(location => location),
   sku: {
       name: "Basic",
-      family: "C0",
+      family: "C",
       capacity: 1,
   },
 });
